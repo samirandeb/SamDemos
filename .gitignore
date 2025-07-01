@@ -8,3 +8,5 @@ target/
 *.DS_Store
 *.idea/
 *.vscode/
+postgres_db/
+grafana_data/
