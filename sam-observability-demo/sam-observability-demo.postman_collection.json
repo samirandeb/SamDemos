@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "ad12e269-10e6-4130-9b78-200b1bac9211",
+		"name": "sam-observability-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13407250"
+	},
+	"item": [
+		{
+			"name": "get-Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIwMmM2ZGU3LWI3YWEtNGMyZC05MjcyLWU4ZGIyM2U2OGRiMCIsInBob25lIjoiODUwNTgyMTY2NiIsIm5hbWUiOiJUYXBhcyBEdXR0YSIsInV1aWQiOiIwNmZmMmEzNy0wZjIwLTRhNjAtODk3NS04ZmI5MmRmOWQyZWIiLCJyb2xlIjoiQ0lUSVpFTiIsImV4cCI6MTc0NzcwNDU4OSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc0NjQwODU4OX0.qVI-nHjncFOMgmwi78g56VpFBEqmqqU2GSOH2OgGSFk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DEMO-URL}}:8181/api/product",
+					"host": [
+						"{{DEMO-URL}}"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-Product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Google-Pixel-9\",\n    \"description\": \"Google-Pixel-9\",\n    \"price\": 1770\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEMO-URL}}:8181/api/product",
+					"host": [
+						"{{DEMO-URL}}"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderLineItemsDtoList\": [\n        {\n            \"skuCode\": \"iphone_15\",\n            \"price\": 2000,\n            \"quantity\": 3\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEMO-URL}}:8181/api/order",
+					"host": [
+						"{{DEMO-URL}}"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
