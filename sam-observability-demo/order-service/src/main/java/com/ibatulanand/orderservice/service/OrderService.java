@@ -1,23 +1,22 @@
 package com.ibatulanand.orderservice.service;
 
-import com.ibatulanand.orderservice.dto.InventoryResponse;
-import com.ibatulanand.orderservice.dto.OrderLineItemsDto;
-import com.ibatulanand.orderservice.dto.OrderRequest;
-import com.ibatulanand.orderservice.event.OrderPlacedEvent;
-import com.ibatulanand.orderservice.model.Order;
-import com.ibatulanand.orderservice.model.OrderLineItems;
-import com.ibatulanand.orderservice.repository.OrderRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import com.ibatulanand.orderservice.dto.InventoryResponse;
+import com.ibatulanand.orderservice.dto.OrderLineItemsDto;
+import com.ibatulanand.orderservice.dto.OrderRequest;
+import com.ibatulanand.orderservice.model.Order;
+import com.ibatulanand.orderservice.model.OrderLineItems;
+import com.ibatulanand.orderservice.repository.OrderRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +26,6 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
-    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
     public String placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
@@ -45,7 +43,7 @@ public class OrderService {
 
         // Call Inventory service, and place order if product is in stock
         InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
-                .uri("http://inventory-service/api/inventory",
+                .uri("http://inventory-service:8082/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)
@@ -64,10 +62,10 @@ public class OrderService {
             log.info("Order saved successfully: {}", order.getOrderNumber());
 
             // Send order to the kafka topic
-            kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
-            kafkaTemplate.flush();
-            kafkaTemplate.destroy();
-            log.info("Order placed event sent to Kafka topic for order number: {}", order.getOrderNumber());
+            // kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
+            // kafkaTemplate.flush();
+            // kafkaTemplate.destroy();
+            log.info("Order placed event sent to broker for order number: {}", order.getOrderNumber());
             return "Order Placed Successfully!";
         } else {
             log.info("Product is not in stock, please try again later");

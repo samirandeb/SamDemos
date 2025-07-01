@@ -10,26 +10,47 @@
 			"name": "get-Products",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIwMmM2ZGU3LWI3YWEtNGMyZC05MjcyLWU4ZGIyM2U2OGRiMCIsInBob25lIjoiODUwNTgyMTY2NiIsIm5hbWUiOiJUYXBhcyBEdXR0YSIsInV1aWQiOiIwNmZmMmEzNy0wZjIwLTRhNjAtODk3NS04ZmI5MmRmOWQyZWIiLCJyb2xlIjoiQ0lUSVpFTiIsImV4cCI6MTc0NzcwNDU4OSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc0NjQwODU4OX0.qVI-nHjncFOMgmwi78g56VpFBEqmqqU2GSOH2OgGSFk",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{DEMO-URL}}:8181/api/product",
+					"raw": "{{DEMO-URL}}:8080/api/product",
 					"host": [
 						"{{DEMO-URL}}"
 					],
-					"port": "8181",
+					"port": "8080",
 					"path": [
 						"api",
 						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inventory-ckeck",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DEMO-URL}}:8082/api/inventory?skuCode=iphone_15",
+					"host": [
+						"{{DEMO-URL}}"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"inventory"
+					],
+					"query": [
+						{
+							"key": "skuCode",
+							"value": "iphone_15"
+						}
 					]
 				}
 			},
@@ -45,7 +66,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"name\": \"Google-Pixel-9\",\n    \"description\": \"Google-Pixel-9\",\n    \"price\": 1770\n}",
+					"raw": "\n    {\n        \"id\": 5,\n        \"name\": \"Iphone-17\",\n        \"description\": \"Iphone-17\",\n        \"price\": 1600\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -53,11 +74,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{DEMO-URL}}:8181/api/product",
+					"raw": "{{DEMO-URL}}:8080/api/product",
 					"host": [
 						"{{DEMO-URL}}"
 					],
-					"port": "8181",
+					"port": "8080",
 					"path": [
 						"api",
 						"product"
@@ -81,11 +102,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{DEMO-URL}}:8181/api/order",
+					"raw": "{{DEMO-URL}}:8081/api/order",
 					"host": [
 						"{{DEMO-URL}}"
 					],
-					"port": "8181",
+					"port": "8081",
 					"path": [
 						"api",
 						"order"

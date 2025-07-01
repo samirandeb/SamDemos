@@ -10,3 +10,4 @@ target/
 *.vscode/
 postgres_db/
 grafana_data/
+elasticsearch/
