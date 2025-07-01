@@ -11,3 +11,4 @@ target/
 postgres_db/
 grafana_data/
 elasticsearch/
+sam-observability-demo/filebeat/data/registry/filebeat/data.json
